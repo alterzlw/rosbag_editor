@@ -131,10 +131,10 @@ void RosbagEditor::changeEnabledWidgets()
   ui->dateTimeOutputEnd->setEnabled( output );
   ui->pushButtonSave->setEnabled( output );
 
-  bool contains_tf = !ui->tableWidgetInput->findItems( "/tf", Qt::MatchExactly ).empty();
+  bool contains_tf = !ui->tableWidgetInput->findItems( "tf", Qt::MatchExactly ).empty();
   ui->pushButtonFilterTF->setEnabled( ui->checkBoxFilterTF->isChecked() && contains_tf );
 
-  bool contains_tf_static = !ui->tableWidgetInput->findItems( "/tf_static", Qt::MatchExactly ).empty();
+  bool contains_tf_static = !ui->tableWidgetInput->findItems( "tf_static", Qt::MatchExactly ).empty();
   ui->pushButtonFilterTFStatic->setEnabled( ui->checkBoxFilterTFStatic->isChecked() && contains_tf_static );
 }
 
@@ -302,7 +302,7 @@ void RosbagEditor::on_pushButtonSave_pressed()
       };
 
 
-      if( (msg.getTopic() == "/tf" && do_tf_filtering) || (msg.getTopic() == "/tf_static" && do_tf_static_filtering) )
+      if( (msg.getTopic() == "tf" && do_tf_filtering) || (msg.getTopic() == "tf_static" && do_tf_static_filtering) )
       {
         const std::string& datatype = msg.getDataType();
         if (datatype == "tf/tfMessage")
@@ -351,26 +351,26 @@ void RosbagEditor::on_dateTimeOutputBegin_dateTimeChanged(const QDateTime &dateT
 
 void RosbagEditor::on_checkBoxFilterTF_toggled(bool checked)
 {
-  bool contains_tf = !ui->tableWidgetInput->findItems( "/tf", Qt::MatchExactly ).empty();
+  bool contains_tf = !ui->tableWidgetInput->findItems( "tf", Qt::MatchExactly ).empty();
   ui->pushButtonFilterTF->setEnabled( checked && contains_tf );
 }
 
 void RosbagEditor::on_pushButtonFilterTF_pressed()
 {
-  FilterFrames dialog(_bag, "/tf", _filtered_frames, this);
+  FilterFrames dialog(_bag, "tf", _filtered_frames, this);
   dialog.exec();
 
 }
 
 void RosbagEditor::on_checkBoxFilterTFStatic_toggled(bool checked)
 {
-  bool contains_tf_static = !ui->tableWidgetInput->findItems( "/tf_static", Qt::MatchExactly ).empty();
+  bool contains_tf_static = !ui->tableWidgetInput->findItems( "tf_static", Qt::MatchExactly ).empty();
   ui->pushButtonFilterTFStatic->setEnabled( checked && contains_tf_static );
 }
 
 void RosbagEditor::on_pushButtonFilterTFStatic_pressed()
 {
-  FilterFrames dialog(_bag, "/tf_static", _filtered_frames, this);
+  FilterFrames dialog(_bag, "tf_static", _filtered_frames, this);
   dialog.exec();
 
 }
